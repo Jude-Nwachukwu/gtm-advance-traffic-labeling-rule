@@ -1,4 +1,4 @@
-# Advance Traffic Labeling Rule
+# Advance Traffic Labeling Rule GTM Variable
 
 ## Overview
 The **Advance Traffic Labeling Rule** is a **Google Tag Manager (GTM) variable custom template** designed for **flexible traffic segmentation** based on various rules, including **domain, cookies, storage, query parameters, and Data Layer variables**. This template helps distinguish **internal vs. external traffic** based on user-defined rules.
@@ -39,8 +39,27 @@ You can enable one or multiple rules to define internal traffic:
 | **Data Layer Variable** | Requires a **GTM Data Layer Variable** to be created and referenced. |
 | **Hostname Rule**       | Checks if the current domain matches a user-defined list. |
 
-### **Step 3: Configure Local Storage, Session Storage, and Data Layer**
-For **Local Storage and Session Storage**, GTM does not provide direct access. You must create a **Custom JavaScript Variable**:
+### **Step 3: Configure the Variable for Each Rule**
+
+#### **Cookie Rule**
+1. Enable **Use Cookie Rule** in the template settings.
+2. Enter the **cookie name** in `cookieNameField`.
+3. Enter the expected **cookie value** in `cookieValueField`.
+4. The variable will check if the specified cookie exists and matches the expected value.
+
+#### **URL Query Parameter Rule**
+1. Enable **Use URL Query Parameter Rule** in the template settings.
+2. Enter the **query parameter name** in `urlQueryParamField`.
+3. Enter the expected **query parameter value** in `urlQueryValueField`.
+4. The variable will check if the specified query parameter exists and matches the expected value.
+
+#### **Hostname Rule**
+1. Enable **Use Hostname Rule** in the template settings.
+2. Enter the **domain(s)** in `domainNameField`. If entering multiple domains, separate them with commas (e.g., `example.com, mysite.org`).
+3. The variable will check if the current page hostname matches any of the specified domains.
+
+### **Step 3b: Configure Local Storage, Session Storage, and Data Layer**
+For **Local Storage and Session Storage**, GTM does not provide direct access for dynamic keys. You must create a **Custom JavaScript Variable**:
 
 #### **Example: Custom JavaScript Variable for Local Storage**
 ```javascript
