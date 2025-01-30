@@ -1,0 +1,6 @@
+---
+homepage: https://dumbdata.co/
+documentation: https://github.com/Jude-Nwachukwu/gtm-advance-traffic-labeling-rule
+versions:
+  - sha: e396fc03419fe495e04b71af79800a6fb7ab1f86
+    changeNotes: Initial release.
