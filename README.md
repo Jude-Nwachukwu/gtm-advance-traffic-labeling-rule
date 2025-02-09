@@ -1,11 +1,11 @@
 # Advance Traffic Labeling Rule GTM Variable
 
 ## Overview
-The **Advance Traffic Labeling Rule** is a **Google Tag Manager (GTM) variable custom template** designed for **flexible traffic segmentation** based on various rules, including **domain, cookies, storage, query parameters, and Data Layer variables**. This template helps distinguish **internal vs. external traffic** based on user-defined rules.
+The **Advance Traffic Labeling Rule** is a **Google Tag Manager (GTM) variable custom template** designed for **flexible traffic segmentation** based on various rules, including **domain, cookies, storage, query parameters, custom variables, and Data Layer variables**. This template helps distinguish **internal vs. external traffic** based on user-defined rules.
 
 ## Features
 - **Default Behavior**: Uses GTM’s `debugMode` and `previewMode` to classify traffic.  
-- **Custom Rule-Based Segmentation**: Supports **cookies, query parameters, local storage, session storage, Data Layer variables, and hostname validation**.  
+- **Custom Rule-Based Segmentation**: Supports **cookies, query parameters, local storage, session storage, Data Layer variables, custom GTM variables, and hostname validation**.  
 - **Flexible Configuration**: Users can enable or disable different traffic rules to suit their needs.  
 - **No-Code UI-Based Setup**: Configure everything within GTM’s template UI—no manual JavaScript needed.
 
@@ -33,10 +33,11 @@ You can enable one or multiple rules to define internal traffic:
 | Rule Type                | Description |
 |-------------------------|-------------|
 | **Cookie Rule**         | Checks if a specific cookie exists and matches the expected value. |
-| **URL Query Parameter** | Checks if a URL query parameter exists and matches the expected value. |
+| **URL Query Parameter** | Checks if a URL query parameter exists and matches the expected value or just its presence. |
 | **Local Storage**       | Requires a **Custom JavaScript Variable** in GTM to check Local Storage. |
 | **Session Storage**     | Requires a **Custom JavaScript Variable** in GTM to check Session Storage. |
 | **Data Layer Variable** | Requires a **GTM Data Layer Variable** to be created and referenced. |
+| **Custom Variable Rule** | Allows users to specify a GTM variable for traffic classification. |
 | **Hostname Rule**       | Checks if the current domain matches a user-defined list. |
 
 ### **Step 3: Configure the Variable for Each Rule**
@@ -49,9 +50,8 @@ You can enable one or multiple rules to define internal traffic:
 
 #### **URL Query Parameter Rule**
 1. Enable **Use URL Query Parameter Rule** in the template settings.
-2. Enter the **query parameter name** in `urlQueryParamField`.
-3. Enter the expected **query parameter value** in `urlQueryValueField`.
-4. The variable will check if the specified query parameter exists and matches the expected value.
+2. Use the **URL Query Table** to define multiple key-value pairs.
+3. Enable **Check For The Presence Of Certain URL Query Keys** if you only need to verify the presence of query parameters.
 
 #### **Hostname Rule**
 1. Enable **Use Hostname Rule** in the template settings.
@@ -76,30 +76,25 @@ function() {
 ```
 Reference this variable inside the **Advance Traffic Labeling Rule** variable.
 
-For **Data Layer**, create a **Data Layer Variable** in GTM:
-1. Go to **Variables > New > Data Layer Variable**.
-2. Set the variable name to match your `dlvKeyField`.
-3. Reference this Data Layer Variable in the **Advance Traffic Labeling Rule** template.
+For **Data Layer**, enter the **Data Layer key** in `dataLayer key field`.
 
 ---
 
 ## Expected Output
 The variable outputs different labels based on configuration.
 
-| Debug Mode | Preview Mode | Cookie Rule | URL Rule | Local Storage | Session Storage | Data Layer | Hostname | Output Label |
-|------------|-------------|-------------|----------|--------------|----------------|------------|----------|--------------|
-| ✅ `true`  | ❌ `false`  | -           | -        | -            | -              | -          | -        | Internal Label |
-| ❌ `false` | ✅ `true`   | -           | -        | -            | -              | -          | -        | Internal Label |
-| ❌ `false` | ❌ `false`  | ✅ `match`  | -        | -            | -              | -          | -        | Internal Label |
-| ❌ `false` | ❌ `false`  | ❌ `no match` | ✅ `match` | - | - | - | - | Internal Label |
-| ❌ `false` | ❌ `false`  | ❌ `no match` | ❌ `no match` | ✅ `match` | - | - | - | Internal Label |
-| ❌ `false` | ❌ `false`  | ❌ `no match` | ❌ `no match` | ❌ `no match` | ✅ `match` | - | - | Internal Label |
-| ❌ `false` | ❌ `false`  | ❌ `no match` | ❌ `no match` | ❌ `no match` | ❌ `no match` | ✅ `match` | - | Internal Label |
-| ❌ `false` | ❌ `false`  | ❌ `no match` | ❌ `no match` | ❌ `no match` | ❌ `no match` | ❌ `no match` | ✅ `match` | Internal Label |
-| ❌ `false` | ❌ `false`  | ❌ `no match` | ❌ `no match` | ❌ `no match` | ❌ `no match` | ❌ `no match` | ❌ `no match` | External Label |
-
-- If **any rule matches**, `Internal Label` is returned.
-- If **no rules match**, `External Label` is returned.
+| Debug Mode | Preview Mode | Cookie Rule | URL Rule | Local Storage | Session Storage | Data Layer | Custom Variable | Hostname | Output Label |
+|------------|-------------|-------------|----------|--------------|----------------|------------|----------------|----------|--------------|
+| ✅ `true`  | ❌ `false`  | -           | -        | -            | -              | -          | -              | -        | Internal Label |
+| ❌ `false` | ✅ `true`   | -           | -        | -            | -              | -          | -              | -        | Internal Label |
+| ❌ `false` | ❌ `false`  | ✅ `match`  | -        | -            | -              | -          | -              | -        | Internal Label |
+| ❌ `false` | ❌ `false`  | ❌ `no match` | ✅ `match` | - | - | - | - | - | Internal Label |
+| ❌ `false` | ❌ `false`  | ❌ `no match` | ❌ `no match` | ✅ `match` | - | - | - | - | Internal Label |
+| ❌ `false` | ❌ `false`  | ❌ `no match` | ❌ `no match` | ❌ `no match` | ✅ `match` | - | - | - | Internal Label |
+| ❌ `false` | ❌ `false`  | ❌ `no match` | ❌ `no match` | ❌ `no match` | ❌ `no match` | ✅ `match` | - | - | Internal Label |
+| ❌ `false` | ❌ `false`  | ❌ `no match` | ❌ `no match` | ❌ `no match` | ❌ `no match` | ❌ `no match` | ✅ `match` | - | Internal Label |
+| ❌ `false` | ❌ `false`  | ❌ `no match` | ❌ `no match` | ❌ `no match` | ❌ `no match` | ❌ `no match` | ❌ `no match` | ✅ `match` | Internal Label |
+| ❌ `false` | ❌ `false`  | ❌ `no match` | ❌ `no match` | ❌ `no match` | ❌ `no match` | ❌ `no match` | ❌ `no match` | ❌ `no match` | External Label |
 
 ---
 
