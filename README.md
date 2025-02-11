@@ -1,7 +1,7 @@
 # Advance Traffic Labeling Rule GTM Variable
 
 ## Overview
-The **Advance Traffic Labeling Rule** is a **Google Tag Manager (GTM) variable custom template** designed for **flexible traffic segmentation** based on various rules, including **domain, cookies, storage, query parameters, custom variables, and Data Layer variables**. This template helps distinguish **internal vs. external traffic** based on user-defined rules.
+The **Advance Traffic Labeling Rule** is a **Google Tag Manager (GTM) variable custom template** designed for **flexible traffic segmentation** based on various rules, including **domains, cookies, storage, query parameters, custom variables, and Data Layer variables**. This template helps distinguish **internal vs. external traffic** based on user-defined rules.
 
 ## Features
 - **Default Behavior**: Uses GTM’s `debugMode` and `previewMode` to classify traffic.  
@@ -36,7 +36,7 @@ You can enable one or multiple rules to define internal traffic:
 | **URL Query Parameter** | Checks if a URL query parameter exists and matches the expected value or just its presence. |
 | **Local Storage**       | Requires a **Custom JavaScript Variable** in GTM to check Local Storage. |
 | **Session Storage**     | Requires a **Custom JavaScript Variable** in GTM to check Session Storage. |
-| **Data Layer Variable** | Requires a **GTM Data Layer Variable** to be created and referenced. |
+| **Data Layer Variable** | Requires you to enter the Data Layer key directly. |
 | **Custom Variable Rule** | Allows users to specify a GTM variable for traffic classification. |
 | **Hostname Rule**       | Checks if the current domain matches a user-defined list. |
 
@@ -44,14 +44,13 @@ You can enable one or multiple rules to define internal traffic:
 
 #### **Cookie Rule**
 1. Enable **Use Cookie Rule** in the template settings.
-2. Enter the **cookie name** in `cookieNameField`.
-3. Enter the expected **cookie value** in `cookieValueField`.
-4. The variable will check if the specified cookie exists and matches the expected value.
+2. Use the **Cookie Name and Value Mapping Table** to define multiple key-value pairs (a Cookie Name and the corresponding value).
+3. Enable **Check for the Presence of Certain Cookie Names** if you only need to verify cookie name existence.
 
 #### **URL Query Parameter Rule**
 1. Enable **Use URL Query Parameter Rule** in the template settings.
 2. Use the **URL Query Table** to define multiple key-value pairs.
-3. Enable **Check For The Presence Of Certain URL Query Keys** if you only need to verify the presence of query parameters.
+3. Enable **Check for the Presence of Certain URL Query Keys** if you only need to verify query key existence.
 
 #### **Hostname Rule**
 1. Enable **Use Hostname Rule** in the template settings.
