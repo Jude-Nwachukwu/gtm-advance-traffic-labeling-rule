@@ -3,6 +3,9 @@
 ## Overview
 The **Advance Traffic Labeling Rule** is a **Google Tag Manager (GTM) variable custom template** designed for **flexible traffic segmentation** based on various rules, including **domains, cookies, storage, query parameters, custom variables, and Data Layer variables**. This template helps distinguish **internal vs. external traffic** based on user-defined rules.
 
+[Check out the Server GTM version of this variable here](https://github.com/Jude-Nwachukwu/sgtm-advance-traffic-labeling-rule)
+
+
 ## Features
 - **Default Behavior**: Uses GTM’s `debugMode` and `previewMode` to classify traffic.  
 - **Custom Rule-Based Segmentation**: Supports **cookies, query parameters, local storage, session storage, Data Layer variables, custom GTM variables, and hostname validation**.  
